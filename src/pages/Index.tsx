@@ -2,6 +2,7 @@ import { useState } from "react";
 import { DistributionForm } from "@/components/DistributionForm";
 import { ResultDisplay } from "@/components/ResultDisplay";
 import { Gift } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 interface Counter {
   name: string;
@@ -22,9 +23,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20">
+      {/* Logo */}
+      <div className="absolute top-6 left-6 animate-in fade-in-50 slide-in-from-left-4 duration-700">
+        <img src={logo} alt="Six Phrase Veranda Enterprise" className="h-12 md:h-16 w-auto" />
+      </div>
+
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Header */}
-        <header className="text-center mb-12 animate-in fade-in-50 slide-in-from-top-4 duration-700">
+        <header className="text-center mb-12 mt-8 animate-in fade-in-50 slide-in-from-top-4 duration-700">
           <div className="flex justify-center mb-4">
             <div className="rounded-full bg-primary/10 p-4">
               <Gift className="h-10 w-10 text-primary" />
