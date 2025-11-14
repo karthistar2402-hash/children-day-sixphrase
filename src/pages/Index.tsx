@@ -3,6 +3,7 @@ import { DistributionForm } from "@/components/DistributionForm";
 import { ResultDisplay } from "@/components/ResultDisplay";
 import { Gift } from "lucide-react";
 import logo from "@/assets/logo.png";
+import jainLogo from "@/assets/jain-logo.png";
 
 interface Counter {
   name: string;
@@ -23,9 +24,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20">
-      {/* Logo */}
+      {/* Logos */}
       <div className="absolute top-6 left-6 animate-in fade-in-50 slide-in-from-left-4 duration-700">
         <img src={logo} alt="Six Phrase Veranda Enterprise" className="h-12 md:h-16 w-auto" />
+      </div>
+      
+      <div className="absolute top-6 right-6 animate-in fade-in-50 slide-in-from-right-4 duration-700">
+        <img src={jainLogo} alt="JGI JAIN Deemed-to-be University" className="h-10 md:h-14 w-auto" />
       </div>
 
       <div className="container mx-auto px-4 py-12 max-w-4xl">
