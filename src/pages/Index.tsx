@@ -1,11 +1,81 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { DistributionForm } from "@/components/DistributionForm";
+import { ResultDisplay } from "@/components/ResultDisplay";
+import { Gift } from "lucide-react";
+
+interface Counter {
+  name: string;
+  color: string;
+  icon: string;
+}
 
 const Index = () => {
+  const [result, setResult] = useState<{ studentName: string; counter: Counter } | null>(null);
+
+  const handleResult = (studentName: string, counter: Counter) => {
+    setResult({ studentName, counter });
+  };
+
+  const handleReset = () => {
+    setResult(null);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20">
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
+        {/* Header */}
+        <header className="text-center mb-12 animate-in fade-in-50 slide-in-from-top-4 duration-700">
+          <div className="flex justify-center mb-4">
+            <div className="rounded-full bg-primary/10 p-4">
+              <Gift className="h-10 w-10 text-primary" />
+            </div>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Student Surprise Distribution
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Welcome to our surprise gift event! Simply enter your details below to discover which counter you're assigned to.
+          </p>
+        </header>
+
+        {/* Instructions */}
+        {!result && (
+          <div className="bg-card border border-border/50 rounded-lg p-6 mb-8 shadow-sm animate-in fade-in-50 slide-in-from-top-4 duration-700 delay-100">
+            <h2 className="text-xl font-semibold text-foreground mb-3">How It Works</h2>
+            <ol className="space-y-2 text-muted-foreground">
+              <li className="flex gap-3">
+                <span className="font-semibold text-primary">1.</span>
+                <span>Enter your full name and register ID in the form below</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="font-semibold text-primary">2.</span>
+                <span>Click "Find My Counter" to get your assigned counter</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="font-semibold text-primary">3.</span>
+                <span>Visit the assigned counter to collect your surprise gift</span>
+              </li>
+            </ol>
+          </div>
+        )}
+
+        {/* Main Content */}
+        <div className="flex justify-center animate-in fade-in-50 zoom-in-95 duration-700 delay-200">
+          {result ? (
+            <ResultDisplay
+              studentName={result.studentName}
+              counter={result.counter}
+              onReset={handleReset}
+            />
+          ) : (
+            <DistributionForm onResult={handleResult} />
+          )}
+        </div>
+
+        {/* Footer */}
+        <footer className="text-center mt-12 text-sm text-muted-foreground animate-in fade-in-50 duration-1000 delay-300">
+          <p>Each register ID is consistently assigned to the same counter</p>
+        </footer>
       </div>
     </div>
   );
