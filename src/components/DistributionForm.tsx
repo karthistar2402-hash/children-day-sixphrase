@@ -12,18 +12,24 @@ const formSchema = z.object({
 });
 
 const counterMapping = [
-  { name: "Apple", color: "text-slate-700", icon: "🍎" },
-  { name: "Microsoft", color: "text-blue-600", icon: "🪟" },
-  { name: "Google", color: "text-red-600", icon: "🔍" },
-  { name: "Meta", color: "text-blue-700", icon: "👁️" },
-  { name: "OpenAI", color: "text-green-600", icon: "🤖" },
+  { name: "Apple", color: "text-slate-700", icon: "🍎", location: "Reception" },
+  { name: "Google", color: "text-red-600", icon: "🔍", location: "Amphitheatre" },
+  { name: "Microsoft", color: "text-blue-600", icon: "🪟", location: "Library" },
+  { name: "Meta", color: "text-blue-700", icon: "👁️", location: "Chemistry Lab" },
+  { name: "JusPay", color: "text-purple-600", icon: "💳", location: "Physics Lab" },
+  { name: "PayTm", color: "text-cyan-600", icon: "💰", location: "Cothas" },
+  { name: "Yahoo!", color: "text-violet-600", icon: "📧", location: "Tuck Shop" },
+  { name: "Capgemini", color: "text-indigo-600", icon: "💼", location: "Second Floor Lobby" },
+  { name: "Adobe", color: "text-rose-600", icon: "🎨", location: "Placement Cell" },
+  { name: "OpenAI", color: "text-green-600", icon: "🤖", location: "Seminar Hall" },
 ];
 
 interface DistributionFormProps {
   onResult: (studentName: string, counter: typeof counterMapping[0]) => void;
+  disabled?: boolean;
 }
 
-export const DistributionForm = ({ onResult }: DistributionFormProps) => {
+export const DistributionForm = ({ onResult, disabled = false }: DistributionFormProps) => {
   const [studentName, setStudentName] = useState("");
   const [registerId, setRegisterId] = useState("");
   const [errors, setErrors] = useState<{ studentName?: string; registerId?: string }>({});
@@ -33,9 +39,9 @@ export const DistributionForm = ({ onResult }: DistributionFormProps) => {
     const digits = regId.replace(/\D/g, '');
     const last5 = digits.slice(-5);
     
-    // Convert to number and mod 5
+    // Convert to number and mod 10
     const number = parseInt(last5, 10);
-    const index = number % 5;
+    const index = number % 10;
     
     return counterMapping[index];
   };
@@ -69,7 +75,7 @@ export const DistributionForm = ({ onResult }: DistributionFormProps) => {
   };
 
   return (
-    <Card className="w-full max-w-md shadow-lg border-border/50">
+    <Card className={`w-full max-w-md shadow-lg border-border/50 ${disabled ? "opacity-60" : ""}`}>
       <CardHeader>
         <CardTitle className="text-2xl">Get Your Counter</CardTitle>
         <CardDescription>Enter your details to find out which counter you're assigned to</CardDescription>
@@ -85,6 +91,7 @@ export const DistributionForm = ({ onResult }: DistributionFormProps) => {
               value={studentName}
               onChange={(e) => setStudentName(e.target.value)}
               className={errors.studentName ? "border-destructive" : ""}
+              disabled={disabled}
             />
             {errors.studentName && (
               <p className="text-sm text-destructive">{errors.studentName}</p>
@@ -92,7 +99,7 @@ export const DistributionForm = ({ onResult }: DistributionFormProps) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="registerId">Register ID</Label>
+            <Label htmlFor="registerId">Register ID (USN)</Label>
             <Input
               id="registerId"
               type="text"
@@ -100,13 +107,14 @@ export const DistributionForm = ({ onResult }: DistributionFormProps) => {
               value={registerId}
               onChange={(e) => setRegisterId(e.target.value)}
               className={errors.registerId ? "border-destructive" : ""}
+              disabled={disabled}
             />
             {errors.registerId && (
               <p className="text-sm text-destructive">{errors.registerId}</p>
             )}
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled={disabled}>
             Find My Counter
           </Button>
         </form>
