@@ -8,6 +8,7 @@ interface ResultDisplayProps {
     name: string;
     color: string;
     icon: string;
+    location: string;
   };
   onReset: () => void;
 }
@@ -27,7 +28,7 @@ export const ResultDisplay = ({ studentName, counter, onReset }: ResultDisplayPr
             <p className="text-sm text-muted-foreground mb-2">Welcome,</p>
             <h2 className="text-2xl font-bold text-foreground mb-4">{studentName}</h2>
             
-            <div className="bg-secondary/50 rounded-lg p-6 space-y-3">
+            <div className="bg-secondary/50 rounded-lg p-6 space-y-4">
               <p className="text-sm text-muted-foreground">Your assigned counter is:</p>
               <div className="flex items-center justify-center gap-3">
                 <span className="text-5xl">{counter.icon}</span>
@@ -35,12 +36,16 @@ export const ResultDisplay = ({ studentName, counter, onReset }: ResultDisplayPr
                   {counter.name}
                 </h3>
               </div>
+              <div className="pt-3 border-t border-border/30">
+                <p className="text-sm text-muted-foreground mb-1">Location:</p>
+                <p className="text-xl font-semibold text-foreground">{counter.location}</p>
+              </div>
             </div>
           </div>
 
           <div className="space-y-2 pt-4">
             <p className="text-sm text-muted-foreground">
-              Please proceed to <span className="font-semibold text-foreground">Counter {counter.name}</span> to collect your surprise!
+              Please proceed to <span className="font-semibold text-foreground">{counter.location}</span> to collect your Children's Day Goodie.
             </p>
             <Button onClick={onReset} variant="outline" className="w-full">
               Check Another Student
